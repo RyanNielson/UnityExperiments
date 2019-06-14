@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Land : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Land : MonoBehaviour
 
     void Start()
     {
+        DOTween.SetTweensCapacity(20000, 100);
         GenerateMap();
     }
 
@@ -64,8 +66,8 @@ public class Land : MonoBehaviour
     {
         if (noise < waterDepth)
         {
-            // float steps = waterDepth / 3f;
             GameObject water = Instantiate(waterBlock, new Vector3(x, -.25f, y), Quaternion.identity, transform);
+            water.transform.DOScaleY(0f, .5f).From().SetDelay(noise * 2);
 
             // TODO: Since noise is rarely 0, maybe we want to find the min and use that as the baseline or add an offset for the deepest.
             Color color = waterGradient.Evaluate(noise / waterDepth);
@@ -75,20 +77,10 @@ public class Land : MonoBehaviour
         }
         else
         {
-
-            // Sand light rgb(248,241,107)
-            // Sand med rgb(237,227,101)
-            // Sand dark rgb(209,190,82)
-            // Grass light rgb(142,164,42)
-            // Grass med rgb(146,180,46)
-            // Grass Dark rgb(128,170,48)
-            // Instantiate(landBlock, new Vector3(x, .5f, y), Quaternion.identity);
-
-
             GameObject grass = Instantiate(landBlock, new Vector3(x, 0, y), Quaternion.identity, transform);
             Color color = grassGradient.Evaluate((noise - waterDepth) / (1f - waterDepth));
             grass.GetComponent<Renderer>().material.SetColor("_BaseColor", color);
-
+            grass.transform.DOScaleY(0f, .5f).From().SetDelay(noise * 2);
             return grass;
         }
     }
