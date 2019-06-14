@@ -62,13 +62,15 @@ public class Land : MonoBehaviour
         }
     }
 
+    // TODO: Maybe make it so that sand will only show up by water or close to other sand.
+    // Otherwise we should just start with grass colours.
     private GameObject SpawnBlock(int x, int y, float noise)
     {
         if (noise < waterDepth)
         {
             GameObject water = Instantiate(waterBlock, new Vector3(x, -.25f, y), Quaternion.identity, transform);
-            water.transform.DOScaleY(0f, .5f).From().SetDelay(noise * 2);
-
+            // water.transform.DOScaleY(0f, .5f).From().SetDelay(noise * 2);
+            water.transform.DOScaleY(0f, .5f).From().SetEase(Ease.InOutElastic).SetDelay(noise * 2);
             // TODO: Since noise is rarely 0, maybe we want to find the min and use that as the baseline or add an offset for the deepest.
             Color color = waterGradient.Evaluate(noise / waterDepth);
             water.GetComponent<Renderer>().material.SetColor("_BaseColor", color);
@@ -80,7 +82,8 @@ public class Land : MonoBehaviour
             GameObject grass = Instantiate(landBlock, new Vector3(x, 0, y), Quaternion.identity, transform);
             Color color = grassGradient.Evaluate((noise - waterDepth) / (1f - waterDepth));
             grass.GetComponent<Renderer>().material.SetColor("_BaseColor", color);
-            grass.transform.DOScaleY(0f, .5f).From().SetDelay(noise * 2);
+            grass.transform.DOScaleY(0f, .5f).From().SetEase(Ease.InOutElastic).SetDelay(noise * 2);
+            // grass.transform.DOShakeScale(0f, .5f).From().SetDelay(noise * 2);
             return grass;
         }
     }

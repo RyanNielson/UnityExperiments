@@ -149,8 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55a684634b4e1fc4aa3e5c1dab645253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 100
-  height: 100
+  width: 50
+  height: 50
   noiseScale: 9
   waterDepth: 0.4
   landBlock: {fileID: 3755271098139893513, guid: 6d6e27b3bc1e0854e984ac8231ed5046,
