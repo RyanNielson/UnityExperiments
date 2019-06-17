@@ -215,6 +215,10 @@ MonoBehaviour:
     m_Mode: 1
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
+  trees:
+  - {fileID: 185286, guid: 8ed1fa325ca228645ad26dd6eff14768, type: 3}
+  - {fileID: 115084, guid: 7c5aafe3fe2c6ef4a9150f7f44653760, type: 3}
+  treeSpawnChance: 0.05
 --- !u!4 &792705923
 Transform:
   m_ObjectHideFlags: 0
@@ -266,7 +270,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.8
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -399,8 +403,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330511336}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.1723094, y: 0.36784378, z: -0.06954852, w: -0.9111331}
+  m_LocalPosition: {x: 59.825752, y: 15.009358, z: -11.404343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

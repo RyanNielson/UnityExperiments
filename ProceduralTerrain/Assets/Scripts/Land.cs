@@ -17,9 +17,15 @@ public class Land : MonoBehaviour
     public GameObject waterBlock;
 
     public GameObject[,] blocks;
+    public GameObject[,] spawnedTrees;
 
     public Gradient waterGradient;
     public Gradient grassGradient;
+
+    public GameObject[] trees;
+
+    [Range(0, 1f)]
+    public float treeSpawnChance;
 
     void Start()
     {
@@ -44,12 +50,15 @@ public class Land : MonoBehaviour
             {
                 GameObject block = blocks[x, y];
                 Destroy(block);
+                GameObject tree = spawnedTrees[x, y];
+                Destroy(tree);
             }
         }
     }
     public void GenerateMap()
     {
         blocks = new GameObject[width, height];
+        spawnedTrees = new GameObject[width, height];
         float[,] noiseMap = Noise.Generate(width, height, noiseScale, Random.Range(0, 100000), Random.Range(0, 100000));
 
         for (int x = 0; x < width; x++)
@@ -84,6 +93,15 @@ public class Land : MonoBehaviour
             grass.GetComponent<Renderer>().material.SetColor("_BaseColor", color);
             grass.transform.DOScaleY(0f, .5f).From().SetEase(Ease.InOutElastic).SetDelay(noise * 2);
             // grass.transform.DOShakeScale(0f, .5f).From().SetDelay(noise * 2);
+
+            bool spawnTree = Random.Range(0f, 1f) <= treeSpawnChance;
+
+            if (spawnTree)
+            {
+                GameObject tree = Instantiate(trees[Random.Range(0, trees.GetLength(0))], new Vector3(x, 0, y), Quaternion.identity, transform);
+                spawnedTrees[x, y] = tree;
+            }
+
             return grass;
         }
     }
